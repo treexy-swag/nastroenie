@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кнопка настроения</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background: #ffd6e0;
+      transition: background 0.4s ease;
+    }
+
+    .card {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .emoji {
+      font-size: 6rem;
+      display: block;
+      margin-bottom: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .emoji.pop {
+      transform: scale(1.2);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      color: #333;
+      margin-bottom: 25px;
+      transition: color 0.4s ease;
+    }
+
+    button {
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #fff;
+      background: #ff6b81;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 6px 0 #d94a60;
+    }
+
+    button:hover {
+      box-shadow: 0 4px 0 #d94a60;
+      transform: translateY(2px);
+    }
+
+    button:active {
+      box-shadow: 0 0 0 #d94a60;
+      transform: translateY(6px);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="emoji" id="emoji">😊</span>
+    <h1 id="text">Какое у тебя настроение?</h1>
+    <button id="btn">Нажми меня</button>
+  </div>
+
+  <script>
+    const moods = [
+      { emoji: '😊', text: 'Отличное настроение!', bg: '#ffd6e0' },
+      { emoji: '😎', text: 'Уверен в себе!',        bg: '#c8e7ff' },
+      { emoji: '🤩', text: 'В восторге!',            bg: '#fff3b0' },
+      { emoji: '😌', text: 'Спокоен и расслаблен',   bg: '#d4f0d4' },
+      { emoji: '🥳', text: 'Праздник в душе!',       bg: '#e8d6ff' },
+      { emoji: '😴', text: 'Хочется поспать...',     bg: '#dcdcdc' }
+    ];
+
+    const emojiEl = document.getElementById('emoji');
+    const textEl = document.getElementById('text');
+    const btn = document.getElementById('btn');
+
+    let index = 0;
+
+    btn.addEventListener('click', () => {
+      index = (index + 1) % moods.length;
+      const mood = moods[index];
+
+      emojiEl.textContent = mood.emoji;
+      textEl.textContent = mood.text;
+      document.body.style.background = mood.bg;
+
+      // Короткая "поп"-анимация
+      emojiEl.classList.add('pop');
+      setTimeout(() => emojiEl.classList.remove('pop'), 200);
+    });
+  </script>
+</body>
+</html>
